@@ -2,26 +2,19 @@ import styled from 'styled-components';
 import useStore from '../store/useStore';
 
 const StatusContainer = styled.div`
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1.5rem;
+  padding: 1rem;
   background-color: #e3f2fd;
-  border-radius: 8px;
+  border-radius: 6px;
   display: ${props => props.$isVisible ? 'block' : 'none'};
-`;
-
-const StatusTitle = styled.h3`
-  margin: 0 0 1rem;
-  color: #1976d2;
 `;
 
 const ProgressBar = styled.div`
   width: 100%;
-  height: 20px;
+  height: 8px;
   background-color: #bbdefb;
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const ProgressFill = styled.div`
@@ -34,6 +27,8 @@ const ProgressFill = styled.div`
 const StatusText = styled.p`
   margin: 0;
   color: #1565c0;
+  font-size: 0.85rem;
+  text-align: center;
 `;
 
 const ProcessingStatus = () => {
@@ -61,7 +56,6 @@ const ProcessingStatus = () => {
 
   return (
     <StatusContainer $isVisible={isVisible}>
-      <StatusTitle>処理状況</StatusTitle>
       <ProgressBar>
         <ProgressFill $progress={transcriptionProgress} />
       </ProgressBar>

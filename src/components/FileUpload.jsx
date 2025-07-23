@@ -4,11 +4,10 @@ import styled from 'styled-components';
 import useStore from '../store/useStore';
 
 const DropzoneContainer = styled.div`
-  margin: 2rem auto;
-  max-width: 600px;
-  padding: 3rem;
+  margin: 0;
+  padding: 2rem 1.5rem;
   border: 2px dashed #3498db;
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -21,31 +20,34 @@ const DropzoneContainer = styled.div`
 `;
 
 const UploadIcon = styled.div`
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
   color: #3498db;
 `;
 
 const UploadText = styled.p`
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: #2c3e50;
-  margin-bottom: 0.5rem;
+  margin: 0.25rem 0;
 `;
 
 const SupportedFormats = styled.p`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #7f8c8d;
+  margin-top: 0.5rem;
 `;
 
 const FileInfo = styled.div`
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
   background-color: #e8f5e9;
   border-radius: 5px;
+  text-align: left;
   
   p {
-    margin: 0.5rem 0;
+    margin: 0.25rem 0;
     color: #2e7d32;
+    font-size: 0.85rem;
   }
 `;
 
@@ -72,19 +74,18 @@ const FileUpload = () => {
       <input {...getInputProps()} />
       <UploadIcon>📁</UploadIcon>
       {isDragActive ? (
-        <UploadText>ファイルをドロップしてください...</UploadText>
+        <UploadText>ファイルをドロップ...</UploadText>
       ) : (
         <>
-          <UploadText>音声ファイルをドラッグ＆ドロップ</UploadText>
-          <UploadText>または、クリックして選択</UploadText>
-          <SupportedFormats>対応形式: MP3, WAV, M4A, OGG（最大10分）</SupportedFormats>
+          <UploadText>ドラッグ＆ドロップまたはクリック</UploadText>
+          <SupportedFormats>MP3, WAV, M4A, OGG（最大10分）</SupportedFormats>
         </>
       )}
       
       {audioFile && (
         <FileInfo>
-          <p><strong>選択されたファイル:</strong> {audioFile.name}</p>
-          <p><strong>サイズ:</strong> {(audioFile.size / 1024 / 1024).toFixed(2)} MB</p>
+          <p><strong>{audioFile.name}</strong></p>
+          <p>{(audioFile.size / 1024 / 1024).toFixed(2)} MB</p>
         </FileInfo>
       )}
     </DropzoneContainer>

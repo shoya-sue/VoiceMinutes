@@ -1,27 +1,23 @@
 import styled from 'styled-components';
 import useStore from '../store/useStore';
 
-const ButtonContainer = styled.div`
-  text-align: center;
-  margin: 2rem auto;
-`;
-
 const Button = styled.button`
-  padding: 1rem 3rem;
-  font-size: 1.1rem;
+  width: 100%;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
   font-weight: 600;
   color: white;
   background-color: ${props => props.disabled ? '#95a5a6' : '#27ae60'};
   border: none;
-  border-radius: 50px;
+  border-radius: 6px;
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
   &:hover:not(:disabled) {
     background-color: #229954;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   }
   
   &:active:not(:disabled) {
@@ -42,14 +38,12 @@ const TranscribeButton = ({ onTranscribe }) => {
   };
 
   return (
-    <ButtonContainer>
-      <Button 
-        onClick={onTranscribe} 
-        disabled={isDisabled}
-      >
-        {getButtonText()}
-      </Button>
-    </ButtonContainer>
+    <Button 
+      onClick={onTranscribe} 
+      disabled={isDisabled}
+    >
+      {getButtonText()}
+    </Button>
   );
 };
 

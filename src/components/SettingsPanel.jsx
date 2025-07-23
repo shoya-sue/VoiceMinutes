@@ -2,36 +2,37 @@ import styled from 'styled-components';
 import useStore from '../store/useStore';
 
 const SettingsContainer = styled.div`
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
 `;
 
 const SettingsTitle = styled.h3`
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
   color: #2c3e50;
+  font-size: 1.1rem;
 `;
 
 const SettingGroup = styled.div`
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const SettingLabel = styled.label`
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   font-weight: 500;
   color: #495057;
+  font-size: 0.9rem;
 `;
 
 const Select = styled.select`
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.4rem 0.6rem;
   border: 1px solid #ced4da;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   background-color: white;
   cursor: pointer;
   
@@ -43,9 +44,10 @@ const Select = styled.select`
 `;
 
 const InfoText = styled.p`
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #6c757d;
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
+  line-height: 1.3;
 `;
 
 const SettingsPanel = () => {
@@ -58,11 +60,11 @@ const SettingsPanel = () => {
       <SettingGroup>
         <SettingLabel>音声認識エンジン</SettingLabel>
         <Select value={selectedEngine} onChange={(e) => setSelectedEngine(e.target.value)}>
-          <option value="whisper">Whisper.js（推奨・長時間対応）</option>
-          <option value="webspeech">Web Speech API（高速・5分まで）</option>
+          <option value="whisper">Whisper.js（推奨）</option>
+          <option value="webspeech">Web Speech API</option>
         </Select>
         <InfoText>
-          Whisper.jsは最大10分の音声に対応し、高精度な認識が可能です。
+          Whisper.js：最大10分・高精度
         </InfoText>
       </SettingGroup>
       

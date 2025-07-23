@@ -3,22 +3,37 @@ import styled from 'styled-components';
 import useStore from '../store/useStore';
 
 const DisplayContainer = styled.div`
-  max-width: 800px;
-  margin: 2rem auto;
-  display: ${props => props.$isVisible ? 'block' : 'none'};
+  height: 100%;
+  display: ${props => props.$isVisible ? 'flex' : 'flex'};
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+`;
+
+const EmptyState = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 2rem;
 `;
 
 const TabContainer = styled.div`
   display: flex;
-  border-bottom: 2px solid #e0e0e0;
-  margin-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fafafa;
 `;
 
 const Tab = styled.button`
   padding: 0.75rem 1.5rem;
   border: none;
   background: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: ${props => props.$active ? '600' : '400'};
   color: ${props => props.$active ? '#2196f3' : '#666'};
   border-bottom: ${props => props.$active ? '2px solid #2196f3' : 'none'};
@@ -31,58 +46,65 @@ const Tab = styled.button`
 `;
 
 const ContentArea = styled.div`
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 2rem;
-  min-height: 400px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background-color: white;
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  min-height: 400px;
+  height: 100%;
+  min-height: 300px;
   padding: 1rem;
   border: 1px solid #ced4da;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-family: monospace;
-  resize: vertical;
+  resize: none;
 `;
 
 const PreviewArea = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: #333;
+  font-size: 0.9rem;
   
   h1, h2, h3 {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
   }
   
-  h1 { font-size: 1.8rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.2rem; }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
   
   ul {
     margin: 0.5rem 0;
-    padding-left: 2rem;
+    padding-left: 1.5rem;
   }
   
   strong {
     font-weight: 600;
   }
+  
+  p {
+    margin: 0.5rem 0;
+  }
 `;
 
 const ActionButtons = styled.div`
-  margin-top: 1.5rem;
+  padding: 1rem;
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   justify-content: center;
+  background: #fafafa;
+  border-top: 1px solid #e0e0e0;
 `;
 
 const ActionButton = styled.button`
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -135,6 +157,7 @@ const MinutesDisplay = () => {
   };
 
   const parseMarkdown = (markdown) => {
+    if (!markdown) return '';
     return markdown
       .replace(/^### (.*$)/gim, '<h3>$1</h3>')
       .replace(/^## (.*$)/gim, '<h2>$1</h2>')
@@ -149,6 +172,17 @@ const MinutesDisplay = () => {
       .replace(/<li>(.*)<\/li>/g, '<ul><li>$1</li></ul>')
       .replace(/<\/ul>\n<ul>/g, '\n');
   };
+
+  if (!isVisible) {
+    return (
+      <DisplayContainer $isVisible={false}>
+        <EmptyState>
+          音声ファイルをアップロードして<br />
+          議事録を生成してください
+        </EmptyState>
+      </DisplayContainer>
+    );
+  }
 
   return (
     <DisplayContainer $isVisible={isVisible}>
@@ -183,10 +217,10 @@ const MinutesDisplay = () => {
       
       <ActionButtons>
         <ActionButton className="primary" onClick={handleCopy}>
-          クリップボードにコピー
+          コピー
         </ActionButton>
         <ActionButton className="secondary" onClick={handleDownload}>
-          ファイルをダウンロード
+          ダウンロード
         </ActionButton>
       </ActionButtons>
     </DisplayContainer>
